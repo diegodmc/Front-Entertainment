@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import {Pie } from 'react-chartjs-2';
+import DeleteIcon from '@material-ui/icons/Delete';
+import SaveIcon from '@material-ui/icons/Save';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
-import { makeStyles, useTheme } from '@material-ui/styles';
+import { makeStyles, useTheme,createMuiTheme } from '@material-ui/styles';
 import {
   Card,
   CardHeader,
   IconButton,
   Divider
 } from '@material-ui/core';
-import CheckCircle from '@material-ui/icons/CheckCircle';
-import RemoveCircle from '@material-ui/icons/RemoveCircle';
-import RefreshIcon from '@material-ui/icons/Refresh';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -22,9 +21,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import mockData from './Pit/dataAction';
 import 'chartjs-plugin-piechart-outlabels-compact';
 import api from '../../../../services/api';
-import validate from 'validate.js';
-import { getToken, login } from "../../../../services/auth";
-
+import { login } from "../../../../services/auth";
 
 const schema = {
   email: {
@@ -196,6 +193,7 @@ const UsersByDevice = props => {
           text: '%l',
           color: 'white',
           stretch: -60,
+          backgroundColor: null,
           font: {
               resizable: true,
               minSize: 12,
@@ -251,7 +249,7 @@ const UsersByDevice = props => {
        <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
           <DialogContent>
                 <DialogContentText >
-                  Ação com a maior valorização na próxima semana!
+                <CardHeader title="Ação com a maior valorização na próxima semana!"/>
                 </DialogContentText>
                 <Autocomplete
                     {...defaultProps}
@@ -271,12 +269,12 @@ const UsersByDevice = props => {
                   />
            </DialogContent>
             <DialogActions>
-              <Button onClick={handleClose} color="primary">
-                  <RemoveCircle className={classes.Close} />
-              </Button>
-              <Button onClick={handleUpdate} color="primary">
-                  <CheckCircle className={classes.Check} />
-              </Button>
+                <Button onClick={handleClose} variant="outlined"  className={classes.Close} startIcon={<DeleteIcon />}>
+                  Cancelar
+                </Button>
+                <Button onClick={handleUpdate} variant="outlined"   className={classes.Check} startIcon={<SaveIcon />}>
+                  Salvar
+                </Button>
             </DialogActions>
           </Dialog>
     </Card>

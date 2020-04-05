@@ -4,10 +4,8 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
 import {
   Card,
-  CardActions,
   CardHeader,
   CardContent,
-  Button,
   Divider,
   Table,
   TableBody,
@@ -15,7 +13,6 @@ import {
   TableHead,
   TableRow
 } from '@material-ui/core';
-import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import mockData from './data';
 import apiWithout from '../../../../services/apiWithout';
 
@@ -25,7 +22,7 @@ const useStyles = makeStyles(theme => ({
     padding: 0
   },
   inner: {
-    minWidth: 800
+    minWidth: 80
   },
   statusContainer: {
     display: 'flex',
@@ -64,16 +61,7 @@ const LatestOrders = props => {
       className={clsx(classes.root, className)}
     >
       <CardHeader
-        action={
-          <Button
-            color="primary"
-            size="small"
-            variant="outlined"
-          >
-            New entry
-          </Button>
-        }
-        title="Mais Negociadas"
+        title="Top 3 carteiras da semana passada"
       />
       <Divider />
       <CardContent className={classes.content}>
@@ -81,9 +69,11 @@ const LatestOrders = props => {
                   <Table>
                     <TableHead>
                       <TableRow>
-                        <TableCell>Ação</TableCell>
-                        <TableCell>Preço</TableCell>
-                        <TableCell className={classes.differenceIcon}> <ArrowUpwardIcon className={classes.differenceIcon} /></TableCell>
+                        <TableCell>1º Ação</TableCell>
+                        <TableCell>2º Ação</TableCell>
+                        <TableCell>3º Ação</TableCell>
+                        <TableCell>4º Ação</TableCell>
+                        <TableCell>5º Ação</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
@@ -94,23 +84,16 @@ const LatestOrders = props => {
                         >
                           <TableCell>{quote.code}</TableCell>
                           <TableCell>{quote.price}</TableCell>
-                          <TableCell className={classes.differenceIcon}>{quote.varpct} %</TableCell>
+                          <TableCell>{quote.price}</TableCell>
+                          <TableCell>{quote.price}</TableCell>
+                          <TableCell>{quote.price}</TableCell>
                         </TableRow>
                       ))}
                     </TableBody>
                   </Table>
                 </div>
       </CardContent>
-      <Divider />
-      <CardActions className={classes.actions}>
-        <Button
-          color="primary"
-          size="small"
-          variant="text"
-        >
-          View all <ArrowUpwardIcon />
-        </Button>
-      </CardActions>
+      
     </Card>
   );
 };
