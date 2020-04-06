@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import {Redirect } from "react-router-dom";
 import { isAuthenticated} from "../../services/auth";
-import { UsersToolbar, UsersTable } from '../OpenMarket/components';
+import { UsersToolbar, UsersTable } from './components';
 import mockData from './data';
 
 const useStyles = makeStyles(theme => ({

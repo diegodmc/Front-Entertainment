@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
-import { Button } from '@material-ui/core';
-
+import { CardHeader,Button,Divider } from '@material-ui/core';
 import { SearchInput } from 'components';
 
 const useStyles = makeStyles(theme => ({
@@ -32,6 +31,20 @@ const UsersToolbar = props => {
       {...rest}
       className={clsx(classes.root, className)}
     >
+      <div className={classes.row}>
+      <CardHeader
+       title="Mercado Fechado"
+        subheader="Encerramento Sexta feira as 19:00"
+      />
+      <Divider />
+        <span className={classes.spacer} />
+        <Button
+          color="primary"
+          variant="contained"
+        >
+          Exportar
+        </Button>
+      </div>
       <div className={classes.row}>
         <SearchInput
           className={classes.searchInput}

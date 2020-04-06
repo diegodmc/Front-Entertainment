@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
-import { Button } from '@material-ui/core';
+import { CardHeader,Divider,Button } from '@material-ui/core';
 
 import { SearchInput } from 'components';
 
@@ -33,6 +33,11 @@ const UsersToolbar = props => {
       className={clsx(classes.root, className)}
     >
       <div className={classes.row}>
+      <CardHeader
+       title="Mercado Aberto"
+        subheader="Abertura segunda feira as 09:00"
+      />
+      <Divider />
         <span className={classes.spacer} />
         <Button
           color="primary"
@@ -42,6 +47,7 @@ const UsersToolbar = props => {
         </Button>
       </div>
       <div className={classes.row}>
+      
         <SearchInput
           className={classes.searchInput}
           placeholder="Pesquisar"
