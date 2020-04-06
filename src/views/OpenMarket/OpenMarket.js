@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const UserList = () => {
+const OpenMarket = () => {
   const classes = useStyles();
 
   const [users] = useState(mockData);
@@ -31,4 +31,4 @@ const UserList = () => {
   );
 };
 
-export default UserList;
+export default OpenMarket;

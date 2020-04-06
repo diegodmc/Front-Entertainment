@@ -17,18 +17,12 @@ const useStyles = makeStyles(theme => ({
   spacer: {
     flexGrow: 1
   },
-  importButton: {
-    marginRight: theme.spacing(1)
-  },
-  exportButton: {
-    marginRight: theme.spacing(1)
-  },
   searchInput: {
     marginRight: theme.spacing(1)
   }
 }));
 
-const ProductsToolbar = props => {
+const UsersToolbar = props => {
   const { className, ...rest } = props;
 
   const classes = useStyles();
@@ -39,28 +33,17 @@ const ProductsToolbar = props => {
       className={clsx(classes.root, className)}
     >
       <div className={classes.row}>
-        <span className={classes.spacer} />
-        <Button className={classes.importButton}>Import</Button>
-        <Button className={classes.exportButton}>Export</Button>
-        <Button
-          color="primary"
-          variant="contained"
-        >
-          Add product
-        </Button>
-      </div>
-      <div className={classes.row}>
         <SearchInput
           className={classes.searchInput}
-          placeholder="Search product"
+          placeholder="Pesquisar"
         />
       </div>
     </div>
   );
 };
 
-ProductsToolbar.propTypes = {
+UsersToolbar.propTypes = {
   className: PropTypes.string
 };
 
-export default ProductsToolbar;
+export default UsersToolbar;

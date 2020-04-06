@@ -6,9 +6,6 @@ import { Main as MainLayout, Minimal as MinimalLayout } from './layouts';
 import 
  {
   Dashboard as DashboardView,
-  ProductList as ProductListView,
-  UserList as UserListView,
-  Typography as TypographyView,
   Icons as IconsView,
   Account as AccountView,
   Settings as SettingsView,
@@ -16,6 +13,9 @@ import
   SignIn as SignInView,
   NotFound as NotFoundView
 } from './views';
+import Ranking from './views/Ranking';
+import ClosedMarket from './views/ClosedMarket';
+import OpenMarket from './views/OpenMarket';
 import Login from './views/SignIn/Login/index';
 import About from './views/About';
 import HowItWorks from './views/HowItWorks';
@@ -36,22 +36,22 @@ const Routes = () => {
         path="/dashboard"
       />
       <RouteWithLayout
-        component={UserListView}
+        component={Ranking}
         exact
         layout={MainLayout}
-        path="/users"
+        path="/Ranking"
       />
       <RouteWithLayout
-        component={ProductListView}
+        component={OpenMarket}
         exact
         layout={MainLayout}
-        path="/products"
+        path="/openmarket"
       />
       <RouteWithLayout
-        component={TypographyView}
+        component={ClosedMarket}
         exact
         layout={MainLayout}
-        path="/typography"
+        path="/ClosedMarket"
       />
       <RouteWithLayout
         component={IconsView}
