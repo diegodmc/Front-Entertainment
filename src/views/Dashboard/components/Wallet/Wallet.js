@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Component } from 'react';
 import {Pie } from 'react-chartjs-2';
 import DeleteIcon from '@material-ui/icons/Delete';
 import SaveIcon from '@material-ui/icons/Save';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
-import { makeStyles, useTheme,createMuiTheme } from '@material-ui/styles';
+import { makeStyles, useTheme } from '@material-ui/styles';
 import {
   Card,
   CardHeader,
   IconButton,
-  Divider
+  Divider,
+  CardContent,
+   Grid
 } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -22,6 +24,8 @@ import mockData from './Pit/dataAction';
 import 'chartjs-plugin-piechart-outlabels-compact';
 import api from '../../../../services/api';
 import { login } from "../../../../services/auth";
+import { ProductCard } from '../../../Settings/components/index';
+import mockDataCard from '../../../Settings/data';
 
 const schema = {
   email: {
@@ -61,19 +65,29 @@ const useStyles = makeStyles(theme => ({
   },
   Close:{
     color: theme.palette.error.main
+  },
+  Information:{
+    textAlign: 'center',
+    padding: theme.spacing(1),
+    color: theme.palette.error.main,
+    fontFamily: 'sans-serif',
+    fontSize:'14px'
+    
   }
 }));
 
 
 
-const UsersByDevice = props => {
+const Wallet = props => {
 
-  const { className, ...rest } = props;
+  const { className,product, ...rest } = props;
   const classes = useStyles();
   const theme = useTheme();
   const { history } = props;
 
   const [open, setOpen] = React.useState(false);
+  const [openWithCash, setOpenWithCash] = React.useState(false);
+  const [openWithoutCash, setOpenWithoutCash] = React.useState(false);
   const [value, setValue] = React.useState(null);
   const [actions, setAction] = React.useState(mockData);
   const [first, setFirst] = React.useState(null);
@@ -82,7 +96,9 @@ const UsersByDevice = props => {
   const [four, setFour] = React.useState(null);
   const [five, setFive] = React.useState(null);
   const [position, setPosition] = React.useState(null);
+  const [MsgInf, setMsgInf] = React.useState(null);
   
+
   const defaultProps = {
     options: actions,
     getOptionLabel: option => option.cd,
@@ -92,51 +108,75 @@ const UsersByDevice = props => {
     if(evt[0]!=null)
       setPosition(evt[0]._index);
     setOpen(true);
+    handleHide();
   }
 
-  const HandleWallet = async e => {
+const handleShow = ()=>{
+      setMsgInf(true);
+ }
 
-    console.log('Diego');
+ const handleSendApi = async e => {
+       
+        setOpenWithCash(false);
+        const response = await api.post("/wallet", {  
+          CodeWallet:"1" ,
+          NameWallet:"1" ,
+          Email:"1" ,
+          FirstAction:"1" , 
+          FirstPctAction:"1" , 
+          FirstPrcAction:"1" , 
+          SecondAction:"1" , 
+          SecondPctAction:"1" , 
+          SecondPrcAction:"1" , 
+          ThirdAction:"1" , 
+          ThirdPctAction:"1" , 
+          ThirdPrcAction:"1" , 
+          FourthAction:"1" , 
+          FourthPctAction:"1" , 
+          FourthPrcAction:"1" , 
+          FifthAction:"1" , 
+          FifthPctAction:"1" , 
+          FifthPrtAction:"1"  
+        } );
+        login(response.data);
+        history.push("/dashboard");
+        
+ }
+ const handleHide = () =>{
+  setMsgInf(false);
+ }
+  const HandleWallet = async e => {
+    //Refatorar tudo!! Pq ficou um ninho de rato!! Mas a vontade de ver tudo funcionando é maior!! 
     e.preventDefault();
-    //if (first ==null || second == null || three == null || four == null || five == null) 
-    //{
-      //his.setState({ error: "Escolha 5 ações para continuar!" });
-    //} else {
+    
+    if (first ==null || second == null || three == null || four == null || five == null) 
+    {
+      handleShow();
+    } else {
+        handleHide();
        try {
-              const response = await api.post("/wallet", {  
-                CodeWallet:"1" ,
-                NameWallet:"1" ,
-                Email:"1" ,
-                FirstAction:"1" , 
-                FirstPctAction:"1" , 
-                FirstPrcAction:"1" , 
-                SecondAction:"1" , 
-                SecondPctAction:"1" , 
-                SecondPrcAction:"1" , 
-                ThirdAction:"1" , 
-                ThirdPctAction:"1" , 
-                ThirdPrcAction:"1" , 
-                FourthAction:"1" , 
-                FourthPctAction:"1" , 
-                FourthPrcAction:"1" , 
-                FifthAction:"1" , 
-                FifthPctAction:"1" , 
-                FifthPrtAction:"1"  
-               } );
-              
-               login(response.data);
-               history.push("/dashboard");
+              if(1==1)
+              {
+                setOpenWithCash(true);
+              }
+              else
+              {
+                setOpenWithoutCash(true);
+              }
             } catch (err) 
             {
-             /* this.setState({
+              this.setState({
                 error:
                   "Houve um problema com o login, verifique suas credenciais."
-              });*/
+              });
             }
+          }
       };
 
   const handleClose = () => {
     setOpen(false);
+    setOpenWithCash(false);
+    setOpenWithoutCash(false);
     Clear();
   };
   
@@ -217,7 +257,7 @@ const UsersByDevice = props => {
       footerFontColor: theme.palette.text.secondary
     }
   };
-
+  const [products] = useState(mockDataCard);
   return (
     <Card
       {...rest}
@@ -226,14 +266,15 @@ const UsersByDevice = props => {
       <CardHeader
         action={
           <IconButton size="small">
+            {MsgInf ? <div  className={classes.Information}>Preencha as 5 ações!</div> : null }
+             
              <Button color="primary"
                      size="small"
                      variant="outlined"
                      onClick={HandleWallet}
-                     
              >
-            Salvar
-          </Button>
+              Salvar
+            </Button>
           </IconButton>
         }
         title="Monte a sua carteira!"
@@ -277,11 +318,69 @@ const UsersByDevice = props => {
                 </Button>
             </DialogActions>
           </Dialog>
-    </Card>
+
+          {/*Dialog pagamento caso tenha saldo */}
+          <Dialog open={openWithCash} onClose={handleClose} aria-labelledby="form-dialog-title">
+          <DialogContent>
+                <DialogContentText >
+                <CardHeader title="Confirma Pagamento?"/>
+                </DialogContentText>
+                
+           </DialogContent>
+            <DialogActions>
+                <Button onClick={handleClose} variant="outlined"  className={classes.Close} startIcon={<DeleteIcon />}>
+                  Não
+                </Button>
+                <Button onClick={handleSendApi} variant="outlined"   className={classes.Check} startIcon={<SaveIcon />}>
+                  Sim
+                </Button>
+            </DialogActions>
+          </Dialog>
+
+          {/*Dialog pagamento caso não tenha saldo */}
+          <Dialog open={openWithoutCash} onClose={handleClose} aria-labelledby="form-dialog-title">
+          <DialogContent>
+                <DialogContentText >
+                <CardHeader title="Faça uma transferência para as contas abaixo" subheader="Identificação do pagamento através do Nome/Conta Bancária"/>
+                </DialogContentText>     
+                <CardContent>
+                <div className={classes.content}>
+                  <Grid
+                    container
+                    spacing={3}
+                  >
+                    {products.map(product => (
+                      <Grid
+                        item
+                        key={product.id}
+                        lg={4}
+                        md={6}
+                        xs={12}
+                      >
+                        <ProductCard product={product} />
+                      </Grid>
+                    ))}
+                  </Grid>
+                </div>
+                </CardContent>           
+           </DialogContent>
+           <Card
+            {...rest}
+            className={clsx(classes.root, className)}
+          >
+           
+          </Card>
+            <DialogActions>
+                <Button onClick={handleClose} variant="outlined"  className={classes.Close} startIcon={<DeleteIcon />}>
+                  Fechar
+                </Button>
+            </DialogActions>
+          </Dialog>
+      </Card>
   );
 };
-UsersByDevice.propTypes = {
+Wallet.propTypes = {
   className: PropTypes.string,
   history: PropTypes.object
 };
-export default UsersByDevice;
+export default Wallet;

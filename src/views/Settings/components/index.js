@@ -1,2 +1,2 @@
-export { default as Notifications } from './Notifications';
-export { default as Password } from './Password';
+export { default as ProductCard } from './ProductCard';
+export { default as ProductsToolbar } from './ProductsToolbar';

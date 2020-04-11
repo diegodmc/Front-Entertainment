@@ -1,42 +1,63 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/styles';
-import { Grid } from '@material-ui/core';
-import { isAuthenticated} from "../../services/auth";
-import {Redirect } from "react-router-dom";
-import { Notifications, Password } from './components';
+import { IconButton, Grid, Typography } from '@material-ui/core';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+
+import { ProductsToolbar, ProductCard } from './components';
+import mockData from './data';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    padding: theme.spacing(4)
+    padding: theme.spacing(3)
+  },
+  content: {
+    marginTop: theme.spacing(2)
+  },
+  pagination: {
+    marginTop: theme.spacing(3),
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end'
   }
 }));
 
 const Settings = () => {
   const classes = useStyles();
 
+  const [products] = useState(mockData);
+
   return (
-    isAuthenticated() ?(
     <div className={classes.root}>
-      <Grid
-        container
-        spacing={4}
-      >
+      <ProductsToolbar />
+      <div className={classes.content}>
         <Grid
-          item
-          md={7}
-          xs={12}
+          container
+          spacing={3}
         >
-          <Notifications />
+          {products.map(product => (
+            <Grid
+              item
+              key={product.id}
+              lg={4}
+              md={6}
+              xs={12}
+            >
+              <ProductCard product={product} />
+            </Grid>
+          ))}
         </Grid>
-        <Grid
-          item
-          md={5}
-          xs={12}
-        >
-          <Password />
-        </Grid>
-      </Grid>
-    </div>) : <Redirect to={{ pathname: "/", state: { from: "" } }} />
+      </div>
+      <div className={classes.pagination}>
+        <Typography variant="caption">1-6 of 20</Typography>
+        <IconButton>
+          <ChevronLeftIcon />
+        </IconButton>
+        <IconButton>
+          <ChevronRightIcon />
+        </IconButton>
+      </div>
+    </div>
   );
 };
 

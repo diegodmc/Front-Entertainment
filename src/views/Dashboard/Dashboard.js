@@ -4,7 +4,7 @@ import { Grid } from '@material-ui/core';
 import { isAuthenticated} from "../../services/auth";
 import {Redirect } from "react-router-dom";
 import {
-  LatestSales,
+  Wallet,
   LatestOrders,
   Information,
   TopHigh
@@ -33,7 +33,7 @@ const Dashboard = () => {
           xl={9}
           xs={12}
         >
-          <LatestSales />
+          <Wallet />
         </Grid>
         <Grid
           item
