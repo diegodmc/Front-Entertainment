@@ -23,12 +23,12 @@ const AccountDetails = props => {
   const classes = useStyles();
 
   const [values, setValues] = useState({
-    firstName: 'Shen',
-    lastName: 'Zhi',
-    email: 'shen.zhi@devias.io',
-    phone: '',
-    state: 'Alabama',
-    country: 'USA'
+    firstName: 'Diego',
+    lastName: 'Costa',
+    email: 'diegodmc.costa@gmail.com',
+    phone: '(47) 9 9682 1206',
+    state: 'Minas Gerais',
+    country: 'BRA'
   });
 
   const handleChange = event => {
@@ -40,16 +40,16 @@ const AccountDetails = props => {
 
   const states = [
     {
-      value: 'alabama',
-      label: 'Alabama'
+      value: 'Santa Catarina',
+      label: 'Santa Catarina'
     },
     {
-      value: 'new-york',
-      label: 'New York'
+      value: 'Minas Gerais',
+      label: 'Minas Gerais'
     },
     {
-      value: 'san-francisco',
-      label: 'San Francisco'
+      value: 'São Paulo',
+      label: 'São Paulo'
     }
   ];
 
@@ -63,8 +63,7 @@ const AccountDetails = props => {
         noValidate
       >
         <CardHeader
-          subheader="The information can be edited"
-          title="Profile"
+          title="Perfil"
         />
         <Divider />
         <CardContent>
@@ -79,10 +78,9 @@ const AccountDetails = props => {
             >
               <TextField
                 fullWidth
-                helperText="Please specify the first name"
-                label="First name"
+                label="Nome"
                 margin="dense"
-                name="firstName"
+                name="Name"
                 onChange={handleChange}
                 required
                 value={values.firstName}
@@ -96,7 +94,7 @@ const AccountDetails = props => {
             >
               <TextField
                 fullWidth
-                label="Last name"
+                label="Sobrenome"
                 margin="dense"
                 name="lastName"
                 onChange={handleChange}
@@ -112,7 +110,7 @@ const AccountDetails = props => {
             >
               <TextField
                 fullWidth
-                label="Email Address"
+                label="Email"
                 margin="dense"
                 name="email"
                 onChange={handleChange}
@@ -128,11 +126,10 @@ const AccountDetails = props => {
             >
               <TextField
                 fullWidth
-                label="Phone Number"
+                label="Telefone"
                 margin="dense"
                 name="phone"
                 onChange={handleChange}
-                type="number"
                 value={values.phone}
                 variant="outlined"
               />
@@ -144,7 +141,7 @@ const AccountDetails = props => {
             >
               <TextField
                 fullWidth
-                label="Select State"
+                label="Estado"
                 margin="dense"
                 name="state"
                 onChange={handleChange}
@@ -172,7 +169,7 @@ const AccountDetails = props => {
             >
               <TextField
                 fullWidth
-                label="Country"
+                label="País"
                 margin="dense"
                 name="country"
                 onChange={handleChange}
@@ -189,7 +186,7 @@ const AccountDetails = props => {
             color="primary"
             variant="contained"
           >
-            Save details
+            Salvar
           </Button>
         </CardActions>
       </form>

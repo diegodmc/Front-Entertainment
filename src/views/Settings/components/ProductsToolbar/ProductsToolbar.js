@@ -37,7 +37,7 @@ const ProductsToolbar = props => {
     >
      <div className={classes.row}>
       <CardHeader
-       title="Transferências para as contas abaixo"
+       title="Transfira para a sua conta na B3 Entretenimento através das contas bancárias abaixo"
         subheader="Identificação do pagamento através do Nome/Conta Bancária"
       />
       </div>
