@@ -4,13 +4,11 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
 import { Divider, Drawer } from '@material-ui/core';
 import DashboardIcon from '@material-ui/icons/Dashboard';
-import PeopleIcon from '@material-ui/icons/People';
-import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
-import TextFieldsIcon from '@material-ui/icons/TextFields';
-import ImageIcon from '@material-ui/icons/Image';
+import Ranking from '@material-ui/icons/FormatListNumbered';
+import GroupAdd from '@material-ui/icons/GroupAdd';
+import Group from '@material-ui/icons/Group';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
-import SettingsIcon from '@material-ui/icons/Settings';
-import LockOpenIcon from '@material-ui/icons/LockOpen';
+import Financeiro from '@material-ui/icons/Payment';
 
 import { Profile, SidebarNav } from './components';
 
@@ -49,25 +47,25 @@ const Sidebar = props => {
       icon: <DashboardIcon />
     },
     {
-      title: 'Minhas Carteiras',
-      href: '/products',
-      icon: <ShoppingBasketIcon />
+      title: 'Mercado Aberto',
+      href: '/OpenMarket',
+      icon: <GroupAdd />
     },
     {
-      title: 'Alavancagem',
-      href: '/typography',
-      icon: <TextFieldsIcon />
+      title: 'Mercado Fechado',
+      href: '/ClosedMarket',
+      icon: <Group />
     },
     {
       title: 'Ranking',
-      href: '/users',
-      icon: <PeopleIcon />
+      href: '/Ranking',
+      icon: <Ranking />
     },
     {
-      title: 'Controle Patrimonial',
-      href: '/sign-in',
-      icon: <LockOpenIcon />
-    },
+      title: 'Financeiro',
+      href: '/settings',
+      icon: <Financeiro />
+    },/*
     {
       title: 'Extrato Financeiro',
       href: '/icons',
@@ -82,7 +80,7 @@ const Sidebar = props => {
       title: 'Minha conta',
       href: '/account',
       icon: <AccountBoxIcon />
-    },
+    },*/
     {
       title: 'Sair',
       href: '/account',

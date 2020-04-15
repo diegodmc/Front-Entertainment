@@ -187,11 +187,11 @@ const SignUp = props => {
     } else 
     {    
        try {
-                const response = await apiWithout.post("/auth/register",{ email: formState.values.email, password: formState.values.password, confirmpassword: formState.values.confirmpassword});
+                const response = await apiWithout.post("/account/register",{ email: formState.values.email, password: formState.values.password});
                 login(response.data);
                 history.push("/dashboard");
                 
-            } catch (err) {
+            } catch (err) { 
               this.setState({ error: "Ocorreu um erro ao registrar sua conta." });
             }
     }

@@ -4,13 +4,9 @@ import { Grid } from '@material-ui/core';
 import { isAuthenticated} from "../../services/auth";
 import {Redirect } from "react-router-dom";
 import {
-  Budget,
-  TotalUsers,
-  TasksProgress,
-  TotalProfit,
-  LatestSales,
+  Wallet,
   LatestOrders,
-  TopLow,
+  Information,
   TopHigh
 } from './components';
 
@@ -32,48 +28,12 @@ const Dashboard = () => {
       >
         <Grid
           item
-          lg={3}
-          sm={6}
-          xl={3}
-          xs={12}
-        >
-          <Budget />
-        </Grid>
-        <Grid
-          item
-          lg={3}
-          sm={6}
-          xl={3}
-          xs={12}
-        >
-          <TotalUsers />
-        </Grid>
-        <Grid
-          item
-          lg={3}
-          sm={6}
-          xl={3}
-          xs={12}
-        >
-          <TasksProgress />
-        </Grid>
-        <Grid
-          item
-          lg={3}
-          sm={6}
-          xl={3}
-          xs={12}
-        >
-          <TotalProfit />
-        </Grid>
-        <Grid
-          item
           lg={8}
           md={12}
           xl={9}
           xs={12}
         >
-          <LatestSales />
+          <Wallet />
         </Grid>
         <Grid
           item
@@ -82,16 +42,7 @@ const Dashboard = () => {
           xl={3}
           xs={12}
         >
-          <TopHigh />
-        </Grid>
-        <Grid
-          item
-          lg={4}
-          md={6}
-          xl={3}
-          xs={12}
-        >
-          <TopLow />
+          <Information />
         </Grid>
         <Grid
           item
@@ -101,6 +52,15 @@ const Dashboard = () => {
           xs={12}
         >
           <LatestOrders />
+        </Grid>
+        <Grid
+          item
+          lg={4}
+          md={6}
+          xl={3}
+          xs={12}
+        >
+          <TopHigh />
         </Grid>
       </Grid>
   </div> 

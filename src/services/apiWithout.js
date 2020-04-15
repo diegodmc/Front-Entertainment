@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const apiWithout = axios.create({
-  baseURL: "https://localhost:44356/api"
+  baseURL: "https://localhost:5001/v1/"
 });
 
 
