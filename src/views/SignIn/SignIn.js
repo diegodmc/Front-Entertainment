@@ -182,7 +182,7 @@ const SignIn = props => {
       this.setState({ error: "Preencha e-mail e senha para continuar!" });
     } else {
        try {
-              const response = await api.post("/auth/login", { email: formState.values.email, password: formState.values.password} );
+              const response = await api.post("/account/login", { email: formState.values.email, password: formState.values.password} );
               login(response.data);
               history.push("/dashboard");
             } catch (err) 
