@@ -118,29 +118,37 @@ const handleShow = ()=>{
  const handleSendApi = async e => {
        
         setOpenWithCash(false);
-        const response = await api.post("/wallet", {  
-          CodeWallet:"1" ,
-          NameWallet:"1" ,
-          Email:"1" ,
-          FirstAction:"1" , 
+       try
+       {
+        const response = await api.post("/wallet/create", {  
+          CodeWallet:1 ,
+          StatusWallet:"1" ,
+          Email:"b3@b3.com" ,
+          FirstAction:first , 
           FirstPctAction:"1" , 
           FirstPrcAction:"1" , 
-          SecondAction:"1" , 
+          SecondAction:second , 
           SecondPctAction:"1" , 
           SecondPrcAction:"1" , 
-          ThirdAction:"1" , 
+          ThirdAction: three , 
           ThirdPctAction:"1" , 
           ThirdPrcAction:"1" , 
-          FourthAction:"1" , 
+          FourthAction:four , 
           FourthPctAction:"1" , 
           FourthPrcAction:"1" , 
-          FifthAction:"1" , 
+          FifthAction:five , 
           FifthPctAction:"1" , 
-          FifthPrtAction:"1"  
+          FifthPrcAction:"1"  
         } );
         login(response.data);
         history.push("/dashboard");
-        
+      } catch (err) 
+      {
+        this.setState({
+          error:
+            "Houve um problema com o login, verifique suas credenciais."
+        });
+      }
  }
  const handleHide = () =>{
   setMsgInf(false);
