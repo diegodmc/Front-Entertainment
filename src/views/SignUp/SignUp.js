@@ -129,6 +129,14 @@ const useStyles = makeStyles(theme => ({
   },
   signUpButton: {
     margin: theme.spacing(2, 0)
+  },
+  Information:{
+    textAlign: 'center',
+    padding: theme.spacing(1),
+    color: theme.palette.error.main,
+    fontFamily: 'sans-serif',
+    fontSize:'14px'
+    
   }
 }));
 
@@ -137,6 +145,8 @@ const SignUp = props => {
 
   const classes = useStyles();
 
+  const [MsgInf, setMsgInf] = React.useState(null);
+  
   const [formState, setFormState] = useState({
     isValid: false,
     values: {},
@@ -179,7 +189,7 @@ const SignUp = props => {
 
   const handleSignUp = async e => {
     e.preventDefault();
-
+    setMsgInf(false);
     const errors = validate(formState.values, schema);
     
     if (errors) {
@@ -188,11 +198,12 @@ const SignUp = props => {
     {    
        try {
                 const response = await apiWithout.post("/account/register",{ email: formState.values.email, password: formState.values.password});
+
                 login(response.data);
                 history.push("/dashboard");
                 
             } catch (err) { 
-              this.setState({ error: "Ocorreu um erro ao registrar sua conta." });
+              setMsgInf(true);
             }
     }
     
@@ -234,6 +245,7 @@ const SignUp = props => {
                   gutterBottom
                 >
                   Use seu email para criar uma nova conta
+                  {MsgInf ? <div  className={classes.Information}>Ops! Esse e-mail já está em uso.</div> : null }
                 </Typography>
                 <TextField
                   className={classes.textField}

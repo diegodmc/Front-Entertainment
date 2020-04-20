@@ -9,7 +9,6 @@ import GroupAdd from '@material-ui/icons/GroupAdd';
 import Group from '@material-ui/icons/Group';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import Financeiro from '@material-ui/icons/Payment';
-
 import { Profile, SidebarNav } from './components';
 
 const useStyles = makeStyles(theme => ({
@@ -83,7 +82,7 @@ const Sidebar = props => {
     },*/
     {
       title: 'Sair',
-      href: '/account',
+      href: '/logout',
       icon: <AccountBoxIcon />
     }
   ];

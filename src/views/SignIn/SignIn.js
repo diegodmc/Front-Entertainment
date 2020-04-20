@@ -15,6 +15,7 @@ import {
 } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import Carousel from '../SignIn/Carousel';
+import { resolveTypeReferenceDirective } from 'typescript';
 
 const schema = {
   email: {
@@ -124,6 +125,14 @@ const useStyles = makeStyles(theme => ({
   },
   signInButton: {
     margin: theme.spacing(2, 0)
+  },
+  Information:{
+    textAlign: 'center',
+    padding: theme.spacing(1),
+    color: theme.palette.error.main,
+    fontFamily: 'sans-serif',
+    fontSize:'14px'
+    
   }
 }));
 
@@ -131,6 +140,9 @@ const SignIn = props => {
   const { history } = props;
 
   const classes = useStyles();
+
+  const [userInvalid, setuserInvalid] = React.useState(null);
+  const [userNotFound, setNotFound] = React.useState(null);
 
   const [formState, setFormState] = useState({
     isValid: false,
@@ -148,6 +160,21 @@ const SignIn = props => {
       errors: errors || {}
     }));
   }, [formState.values]);
+
+  const handleShowUserNotFound = ()=>{
+    setNotFound(true);
+  }
+
+  const handleHideUserNotFound = ()=>{
+    setNotFound(false);
+  }
+  const handleShowUserInvalid = ()=>{
+    setuserInvalid(true);
+  }
+
+  const handleHideUserInvalid = ()=>{
+    setuserInvalid(false);
+  }
 
   const handleBack = () => {
     history.goBack();
@@ -176,21 +203,26 @@ const SignIn = props => {
 
     e.preventDefault();
     
+    handleHideUserInvalid();
+    handleHideUserNotFound();
     const errors = validate(formState.values, schema);
     
     if (errors) {
       this.setState({ error: "Preencha e-mail e senha para continuar!" });
     } else {
        try {
-              const response = await api.post("/account/login", { email: formState.values.email, password: formState.values.password} );
+             const response = await api.post("/account/login", { email: formState.values.email, password: formState.values.password} );
+
               login(response.data);
               history.push("/dashboard");
+              
             } catch (err) 
             {
-              this.setState({
-                error:
-                  "Houve um problema com o login, verifique suas credenciais."
-              });
+              if(err.response.status == 404)
+                handleShowUserNotFound();
+              
+              else if(err.response.status == 401)
+                handleShowUserInvalid();
             }
     }
     
@@ -245,6 +277,8 @@ const SignIn = props => {
                   gutterBottom
                 >
                   Realize seu login para continuar.
+                  {userInvalid ? <div  className={classes.Information}>Senha errada!</div> : null }
+                  {userNotFound ? <div  className={classes.Information}>Usuário não cadastrado!</div> : null }
                 </Typography>
                
                 <TextField
