@@ -126,6 +126,14 @@ const useStyles = makeStyles(theme => ({
   },
   signInButton: {
     margin: theme.spacing(2, 0)
+  },
+  Information:{
+    textAlign: 'center',
+    padding: theme.spacing(1),
+    color: theme.palette.error.main,
+    fontFamily: 'sans-serif',
+    fontSize:'14px'
+    
   }
 }));
 
@@ -133,7 +141,8 @@ const Login = props => {
   const { history } = props;
 
   const classes = useStyles();
-
+  const [userInvalid, setuserInvalid] = React.useState(null);
+  const [userNotFound, setNotFound] = React.useState(null);
   const [formState, setFormState] = useState({
     isValid: false,
     values: {},
@@ -154,6 +163,21 @@ const Login = props => {
   const handleBack = () => {
     history.goBack();
   };
+
+  const handleShowUserNotFound = ()=>{
+    setNotFound(true);
+  }
+
+  const handleHideUserNotFound = ()=>{
+    setNotFound(false);
+  }
+  const handleShowUserInvalid = ()=>{
+    setuserInvalid(true);
+  }
+
+  const handleHideUserInvalid = ()=>{
+    setuserInvalid(false);
+  }
 
   const handleChange = event => {
     event.persist();
@@ -177,7 +201,8 @@ const Login = props => {
   const handleSignIn = async e => {
 
     e.preventDefault();
-    
+    handleHideUserInvalid();
+    handleHideUserNotFound();
     const errors = validate(formState.values, schema);
     
     if (errors) {
@@ -186,16 +211,16 @@ const Login = props => {
        try {
               const response = await api.post("/account/login", { email: formState.values.email, password: formState.values.password} );
               login(response.data);
-              history.push("/");
+              history.push("/dashboard");
             } catch (err) 
             {
-              this.setState({
-                error:
-                  "Houve um problema com o login, verifique suas credenciais."
-              });
+              if(err.response.status == 404)
+                handleShowUserNotFound();
+              
+              else if(err.response.status == 401)
+                handleShowUserInvalid();
             }
     }
-    history.push('/');
   };
 
   const hasError = field =>
@@ -234,6 +259,8 @@ const Login = props => {
                     gutterBottom
                   >
                     Realize seu login para continuar.
+                    {userInvalid ? <div  className={classes.Information}>Senha errada!</div> : null }
+                    {userNotFound ? <div  className={classes.Information}>Usuário não cadastrado!</div> : null }
                   </Typography>
                  
                   <TextField

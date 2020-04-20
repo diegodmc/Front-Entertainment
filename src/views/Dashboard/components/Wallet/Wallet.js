@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Component } from 'react';
+import React, { useState, useEffect} from 'react';
 import {Pie } from 'react-chartjs-2';
 import DeleteIcon from '@material-ui/icons/Delete';
 import SaveIcon from '@material-ui/icons/Save';
@@ -26,6 +26,8 @@ import api from '../../../../services/api';
 import { login } from "../../../../services/auth";
 import { ProductCard } from '../../../Settings/components/index';
 import mockDataCard from '../../../Settings/data';
+
+
 
 const schema = {
   email: {
@@ -77,9 +79,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-
 const Wallet = props => {
-
+  
   const { className,product, ...rest } = props;
   const classes = useStyles();
   const theme = useTheme();
@@ -98,7 +99,23 @@ const Wallet = props => {
   const [position, setPosition] = React.useState(null);
   const [MsgInf, setMsgInf] = React.useState(null);
   
+  const handleGetWallet = async (e,v) => {
 
+       const response =  await api.get("/wallet/getwallet");
+        
+        if(response.status == 200)
+        {
+             setFirst(response.data.firstAction);
+             setSecond(response.data.secondAction);
+             setThree(response.data.thirdAction);
+             setFour(response.data.fourthAction);
+             setFive(response.data.fifthAction);
+        }
+   }
+   useEffect(() => {
+    handleGetWallet();
+  }, []);
+   
   const defaultProps = {
     options: actions,
     getOptionLabel: option => option.cd,
@@ -110,37 +127,43 @@ const Wallet = props => {
     setOpen(true);
     handleHide();
   }
-
+  
 const handleShow = ()=>{
       setMsgInf(true);
  }
 
+ 
  const handleSendApi = async e => {
-       
+  
         setOpenWithCash(false);
-        const response = await api.post("/wallet", {  
-          CodeWallet:"1" ,
-          NameWallet:"1" ,
-          Email:"1" ,
-          FirstAction:"1" , 
+       try
+       {
+        const response = await api.post("/wallet/create", {  
+          CodeWallet:1 ,
+          StatusWallet:"1" ,
+          Email:"b3@b3.com" ,
+          FirstAction:first , 
           FirstPctAction:"1" , 
           FirstPrcAction:"1" , 
-          SecondAction:"1" , 
+          SecondAction:second , 
           SecondPctAction:"1" , 
           SecondPrcAction:"1" , 
-          ThirdAction:"1" , 
+          ThirdAction: three , 
           ThirdPctAction:"1" , 
           ThirdPrcAction:"1" , 
-          FourthAction:"1" , 
+          FourthAction:four , 
           FourthPctAction:"1" , 
           FourthPrcAction:"1" , 
-          FifthAction:"1" , 
+          FifthAction:five , 
           FifthPctAction:"1" , 
-          FifthPrtAction:"1"  
+          FifthPrcAction:"1"  
         } );
         login(response.data);
         history.push("/dashboard");
-        
+      } catch (err) 
+      {
+        this.setState({error:"Houve um problema com o login, verifique suas credenciais."});
+      }
  }
  const handleHide = () =>{
   setMsgInf(false);
@@ -174,10 +197,10 @@ const handleShow = ()=>{
       };
 
   const handleClose = () => {
-    setOpen(false);
-    setOpenWithCash(false);
-    setOpenWithoutCash(false);
-    Clear();
+      setOpen(false);
+      setOpenWithCash(false);
+      setOpenWithoutCash(false);
+      Clear();
   };
   
   const handleUpdate = (e,v) => {
@@ -216,7 +239,7 @@ const handleShow = ()=>{
              three == null ? '3º Ação' : three,
              four  == null ? '4º Ação' : four,
              five  == null ? '5º Ação' : five],
-    
+               
   };
 
   const opts = {
@@ -257,7 +280,10 @@ const handleShow = ()=>{
       footerFontColor: theme.palette.text.secondary
     }
   };
+  
+  
   const [products] = useState(mockDataCard);
+
   return (
     <Card
       {...rest}
@@ -267,7 +293,7 @@ const handleShow = ()=>{
         action={
           <IconButton size="small">
             {MsgInf ? <div  className={classes.Information}>Preencha as 5 ações!</div> : null }
-             
+            
              <Button color="primary"
                      size="small"
                      variant="outlined"
@@ -280,6 +306,7 @@ const handleShow = ()=>{
         title="Monte a sua carteira!"
       />
       <Divider />
+      
        <div className={classes.chartContainer}>
           <Pie
             data={data}
@@ -377,10 +404,14 @@ const handleShow = ()=>{
             </DialogActions>
           </Dialog>
       </Card>
-  );
+  
+ );
+ 
+  
 };
 Wallet.propTypes = {
   className: PropTypes.string,
   history: PropTypes.object
 };
+
 export default Wallet;

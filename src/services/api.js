@@ -6,12 +6,13 @@ const api = axios.create({
 });
 
 api.interceptors.request.use(async config => {
-  const token = getToken();
+  const token = JSON.parse(getToken());
   const headers = {
-    'Content-Type': 'application/json;charset=UTF-8'
+    'Content-Type': 'application/json;charset=UTF-8',
+    'Authorization' : 'Bearer '+ token
   };
   if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+    
     config.headers = headers;
   }
   return config;

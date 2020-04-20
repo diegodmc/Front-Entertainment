@@ -8,10 +8,8 @@ import {
   CardContent,
   Divider
 } from '@material-ui/core';
-import apiWithout from '../../../../services/apiWithout';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 const useStyles = makeStyles(theme => ({
   root: {
@@ -53,16 +51,6 @@ const Information = props => {
 
   const classes = useStyles();
 
-  const [quotes, setQuote] = useState([]);
-
-  useEffect( () =>{
-
-        async function loadQuote(){
-            const response = await apiWithout.get('/quote/GetTopLow');
-            setQuote(response.data);            
-        }
-        loadQuote();
-    }, []);
 
 
   return (
