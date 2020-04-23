@@ -13,20 +13,16 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Icons = () => {
+const History = () => {
   const classes = useStyles();
 
   return (
     isAuthenticated() ?(
     <div className={classes.root}>
-      <iframe
-        className={classes.iframe}
-        src="https://material.io/tools/icons/?icon=accessibility&style=outline"
-        title="Material Design icons"
-      />
+      
     </div>
     ) : <Redirect to={{ pathname: "/", state: { from: "" } }} />
   );
 };
 
-export default Icons;
+export default History;

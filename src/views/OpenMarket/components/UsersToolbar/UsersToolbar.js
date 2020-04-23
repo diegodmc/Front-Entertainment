@@ -6,6 +6,7 @@ import { CardHeader,Divider,Button } from '@material-ui/core';
 import { Link as RouterLink} from 'react-router-dom';
 import { SearchInput } from 'components';
 
+
 const useStyles = makeStyles(theme => ({
   root: {},
   row: {
@@ -49,11 +50,11 @@ const UsersToolbar = props => {
         </Button>
       </div>
       <div className={classes.row}>
-      
-        <SearchInput
+       <SearchInput
           className={classes.searchInput}
           placeholder="Pesquisar"
         />
+       
       </div>
     </div>
   );
