@@ -23,10 +23,8 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import mockData from './Pit/dataAction';
 import 'chartjs-plugin-piechart-outlabels-compact';
 import api from '../../../../services/api';
-import { login } from "../../../../services/auth";
 import { ProductCard } from '../../../Settings/components/index';
 import mockDataCard from '../../../Settings/data';
-
 
 
 const schema = {
@@ -74,7 +72,21 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.error.main,
     fontFamily: 'sans-serif',
     fontSize:'14px'
-    
+  },
+  TextInformation:{
+    textAlign: 'center',
+    padding: theme.spacing(1),
+    fontFamily: 'sans-serif',
+    fontSize:'14px',
+    fontWeight: 'bold'
+  },
+  SuccessInformation:{
+    textAlign: 'center',
+    padding: theme.spacing(1),
+    color: theme.palette.success.main,
+    fontFamily: 'sans-serif',
+    fontSize:'14px',
+    fontWeight: 'bold'
   }
 }));
 
@@ -98,7 +110,13 @@ const Wallet = props => {
   const [five, setFive] = React.useState(null);
   const [position, setPosition] = React.useState(null);
   const [MsgInf, setMsgInf] = React.useState(null);
-  
+  const [MsgSubHeader, setMsgSubHeader] = React.useState(null);
+  const [MsgHeader, setMsgHeader] = React.useState(null);
+  const [accountBalance, setAccountBalance] = React.useState(null);
+  const [cust, setCust] = React.useState(null);
+  const [updatedBalance, setUpdatedBalance] = React.useState(null);
+  const [MsgUpdate, setMsgUpdate] = React.useState(null);
+     
   const handleGetWallet = async (e,v) => {
 
        const response =  await api.get("/wallet/getwallet");
@@ -112,8 +130,16 @@ const Wallet = props => {
              setFive(response.data.fifthAction);
         }
    }
+   
+  const handleGetHeader = async (e,v) => {
+      const response =  await api.get("/wallet/GetHeader");
+      setMsgHeader(response.data.header);
+      setMsgSubHeader(response.data.subheader);
+}
+
    useEffect(() => {
     handleGetWallet();
+    handleGetHeader();
   }, []);
    
   const defaultProps = {
@@ -135,12 +161,13 @@ const handleShow = ()=>{
  
  const handleSendApi = async e => {
   
-        setOpenWithCash(false);
+      setOpenWithCash(false);
+      setMsgUpdate(false);
        try
        {
         const response = await api.post("/wallet/create", {  
           CodeWallet:1 ,
-          StatusWallet:"1" ,
+          StatusWallet:openWithCash ? "1" :"0" ,
           Email:"b3@b3.com" ,
           FirstAction:first , 
           FirstPctAction:"1" , 
@@ -158,8 +185,19 @@ const handleShow = ()=>{
           FifthPctAction:"1" , 
           FifthPrcAction:"1"  
         } );
-        login(response.data);
-        history.push("/dashboard");
+        if(response.status == 200)
+        {
+          setMsgHeader("Participação confirmada!");
+          setMsgSubHeader("Alteração da carteira até segunda às 09:00");
+        }
+        if(response.data.StatusWallet == "99")
+        {
+          
+          setMsgUpdate(true);
+        }
+        else
+          await api.post("/balance/create",{Email:"b3@b3.com" , ValueInput:"1", DateInput:"1", ValueOut:"1", DateOut:"1"});
+
       } catch (err) 
       {
         this.setState({error:"Houve um problema com o login, verifique suas credenciais."});
@@ -171,18 +209,26 @@ const handleShow = ()=>{
   const HandleWallet = async e => {
     //Refatorar tudo!! Pq ficou um ninho de rato!! Mas a vontade de ver tudo funcionando é maior!! 
     e.preventDefault();
-    
+    setMsgUpdate(false);
     if (first ==null || second == null || three == null || four == null || five == null) 
     {
       handleShow();
     } else {
         handleHide();
        try {
-              if(1==1)
+              const response = await api.get("/balance/GetMoney");
+              
+              if(response.status == 200)
               {
-                setOpenWithCash(true);
+                setAccountBalance(response.data.accountBalance);
+                setCust(response.data.cust);
+                setUpdatedBalance(response.data.updatedBalance);
+                if(MsgHeader=="Participação confirmada!")
+                  setMsgUpdate(true);
+                else
+                  setOpenWithCash(true);
               }
-              else
+              else if(response.status == 204)
               {
                 setOpenWithoutCash(true);
               }
@@ -199,6 +245,7 @@ const handleShow = ()=>{
   const handleClose = () => {
       setOpen(false);
       setOpenWithCash(false);
+      setMsgUpdate(false);
       setOpenWithoutCash(false);
       Clear();
   };
@@ -293,7 +340,7 @@ const handleShow = ()=>{
         action={
           <IconButton size="small">
             {MsgInf ? <div  className={classes.Information}>Preencha as 5 ações!</div> : null }
-            
+            {MsgUpdate ? <div  className={classes.SuccessInformation}>Carteira atualizada!</div> : null }
              <Button color="primary"
                      size="small"
                      variant="outlined"
@@ -303,7 +350,8 @@ const handleShow = ()=>{
             </Button>
           </IconButton>
         }
-        title="Monte a sua carteira!"
+        title={MsgHeader}
+        subheader={MsgSubHeader}
       />
       <Divider />
       
@@ -354,6 +402,10 @@ const handleShow = ()=>{
                 </DialogContentText>
                 
            </DialogContent>
+           <div className={classes.TextInformation}>Saldo em conta:</div>  <div className={classes.Information}>{accountBalance}</div> 
+           <div className={classes.TextInformation}>Pagamento:</div>  <div className={classes.Information}>{cust}</div> 
+           <div className={classes.TextInformation}>Saldo atualizado:</div>  <div className={classes.Information}>{updatedBalance}</div> 
+          
             <DialogActions>
                 <Button onClick={handleClose} variant="outlined"  className={classes.Close} startIcon={<DeleteIcon />}>
                   Não

@@ -10,7 +10,7 @@ import Group from '@material-ui/icons/Group';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import Financeiro from '@material-ui/icons/Payment';
 import { Profile, SidebarNav } from './components';
-
+import HistoryIcon from '@material-ui/icons/History';
 const useStyles = makeStyles(theme => ({
   drawer: {
     width: 240,
@@ -64,12 +64,12 @@ const Sidebar = props => {
       title: 'Financeiro',
       href: '/settings',
       icon: <Financeiro />
-    },/*
-    {
-      title: 'Extrato Financeiro',
-      href: '/icons',
-      icon: <ImageIcon />
     },
+    {
+      title: 'Histórico ',
+      href: '/history',
+      icon: <HistoryIcon />
+    },/*
     {
       title: 'Fórum',
       href: '/settings',

@@ -6,7 +6,6 @@ import { Main as MainLayout, Minimal as MinimalLayout } from './layouts';
 import 
  {
   Dashboard as DashboardView,
-  Icons as IconsView,
   Account as AccountView,
   Settings as SettingsView,
   SignUp as SignUpView,
@@ -20,6 +19,7 @@ import Login from './views/SignIn/Login/index';
 import About from './views/About';
 import HowItWorks from './views/HowItWorks';
 import Support from './views/Support';
+import HistoryView from './views/History';
 
 const Routes = () => {
   return (
@@ -54,10 +54,10 @@ const Routes = () => {
         path="/ClosedMarket"
       />
       <RouteWithLayout
-        component={IconsView}
+        component={HistoryView}
         exact
         layout={MainLayout}
-        path="/icons"
+        path="/history"
       />
       <RouteWithLayout
         component={AccountView}

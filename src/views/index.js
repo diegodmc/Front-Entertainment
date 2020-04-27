@@ -1,6 +1,6 @@
 export { default as Account } from './Account';
 export { default as Dashboard } from './Dashboard';
-export { default as Icons } from './Icons';
+export { default as History } from './History';
 export { default as NotFound } from './NotFound';
 export { default as OpenMarket } from './OpenMarket';
 export { default as Settings } from './Settings';
