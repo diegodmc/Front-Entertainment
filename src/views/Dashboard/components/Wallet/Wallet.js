@@ -228,7 +228,7 @@ const handleShow = ()=>{
                 else
                   setOpenWithCash(true);
               }
-              else
+              else if(response.status == 204)
               {
                 setOpenWithoutCash(true);
               }
