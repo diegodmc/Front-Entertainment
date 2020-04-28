@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import { makeStyles } from '@material-ui/styles';
 import {Redirect } from "react-router-dom";
 import { isAuthenticated} from "../../services/auth";
 import { UsersToolbar, UsersTable } from './components';
 import mockData from './data';
+import api from '../../services/api';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -17,7 +18,17 @@ const useStyles = makeStyles(theme => ({
 const Ranking = () => {
   const classes = useStyles();
 
-  const [users] = useState(mockData);
+  
+  const [users, setUsers] = React.useState(mockData);
+  
+  const handleGetRanking = async (e,v) => {
+      const response = await api.get("/wallet/getranking");
+      setUsers(response.data);
+  }
+
+    useEffect(() => {
+      handleGetRanking();
+    }, []);
 
   return (
     isAuthenticated() ?(

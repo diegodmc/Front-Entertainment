@@ -7,17 +7,13 @@ import {
   Card,
   CardActions,
   CardContent,
-  Avatar,
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableRow,
-  Typography,
   TablePagination
 } from '@material-ui/core';
-
-import { getInitials } from 'helpers';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -71,7 +67,7 @@ const UsersTable = props => {
                 <TableRow>
                   <TableCell>Nome</TableCell>
                   <TableCell>Carteira</TableCell>
-                  <TableCell>Situação</TableCell>
+                  
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -83,8 +79,8 @@ const UsersTable = props => {
                     selected={selectedUsers.indexOf(user.id) !== -1}
                   >
                     <TableCell>{user.email}</TableCell>
-                    <TableCell>{user.email}</TableCell>
-                    <TableCell>{user.email}</TableCell>
+                    <TableCell>{user.wallets}</TableCell>
+                    
                   
                   </TableRow>
                 ))}
@@ -94,15 +90,7 @@ const UsersTable = props => {
         </PerfectScrollbar>
       </CardContent>
       <CardActions className={classes.actions}>
-        <TablePagination
-          component="div"
-          count={users.length}
-          onChangePage={handlePageChange}
-          onChangeRowsPerPage={handleRowsPerPageChange}
-          page={page}
-          rowsPerPage={rowsPerPage}
-          rowsPerPageOptions={[5, 10, 25]}
-        />
+        
       </CardActions>
     </Card>
   );

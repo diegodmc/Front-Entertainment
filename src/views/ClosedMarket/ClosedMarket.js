@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import { makeStyles } from '@material-ui/styles';
 import {Redirect } from "react-router-dom";
 import { isAuthenticated} from "../../services/auth";
 import { UsersToolbar, UsersTable } from './components';
 import mockData from './data';
-
+import api from '../../services/api';
 const useStyles = makeStyles(theme => ({
   root: {
     padding: theme.spacing(3)
@@ -17,7 +17,17 @@ const useStyles = makeStyles(theme => ({
 const ClosedMarket = () => {
   const classes = useStyles();
 
-  const [users] = useState(mockData);
+  const [users, setUsers] = React.useState(mockData);
+  
+  const handleGetOpen = async (e,v) => {
+    const response =  await api.get("/wallet/getclosed");
+    setUsers(response.data);
+}
+
+ useEffect(() => {
+  handleGetOpen();
+}, []);
+  
 
   return (
     isAuthenticated() ?(

@@ -4,7 +4,6 @@ import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
 import { CardHeader,Divider,Button } from '@material-ui/core';
 import { Link as RouterLink} from 'react-router-dom';
-import { SearchInput } from 'components';
 
 
 const useStyles = makeStyles(theme => ({
@@ -48,13 +47,6 @@ const UsersToolbar = props => {
         >
           Add Carteira
         </Button>
-      </div>
-      <div className={classes.row}>
-       <SearchInput
-          className={classes.searchInput}
-          placeholder="Pesquisar"
-        />
-       
       </div>
     </div>
   );
