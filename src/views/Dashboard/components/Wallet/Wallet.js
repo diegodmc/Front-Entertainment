@@ -102,7 +102,7 @@ const Wallet = props => {
   const [openWithCash, setOpenWithCash] = React.useState(false);
   const [openWithoutCash, setOpenWithoutCash] = React.useState(false);
   const [value, setValue] = React.useState(null);
-  const [actions, setAction] = React.useState(mockData);
+  const [actions, setAction] = React.useState(null);
   const [first, setFirst] = React.useState(null);
   const [second, setSecond] = React.useState(null);
   const [three, setThree] = React.useState(null);
@@ -116,6 +116,8 @@ const Wallet = props => {
   const [cust, setCust] = React.useState(null);
   const [updatedBalance, setUpdatedBalance] = React.useState(null);
   const [MsgUpdate, setMsgUpdate] = React.useState(null);
+  const [Choose, setChoose] = React.useState(null);
+  const [DataWallet, setDataWallet] = React.useState(null);
      
   const handleGetWallet = async (e,v) => {
 
@@ -135,11 +137,18 @@ const Wallet = props => {
       const response =  await api.get("/wallet/GetHeader");
       setMsgHeader(response.data.header);
       setMsgSubHeader(response.data.subheader);
+      setChoose(response.data.choose);
+      setDataWallet(response.data.dataWallet);
 }
 
+const handleGetActions = async (e,v) => {
+  const response =  await api.get("/action/GetActions");
+  setAction(response.data);
+}
    useEffect(() => {
     handleGetWallet();
     handleGetHeader();
+    handleGetActions();
   }, []);
    
   const defaultProps = {
@@ -160,14 +169,14 @@ const handleShow = ()=>{
 
  
  const handleSendApi = async e => {
-  
+     
       setOpenWithCash(false);
       setMsgUpdate(false);
        try
        {
         const response = await api.post("/wallet/create", {  
           CodeWallet:1 ,
-          StatusWallet:openWithCash ? "1" :"0" ,
+          StatusWallet: "1",
           Email:"b3@b3.com" ,
           FirstAction:first , 
           FirstPctAction:"1" , 
@@ -223,8 +232,30 @@ const handleShow = ()=>{
                 setAccountBalance(response.data.accountBalance);
                 setCust(response.data.cust);
                 setUpdatedBalance(response.data.updatedBalance);
-                if(MsgHeader=="Participação confirmada!")
+                if(MsgHeader=='Participação confirmada!')
+                {
                   setMsgUpdate(true);
+                  const rsp = await api.post("/wallet/create", {  
+                    CodeWallet:1 ,
+                    StatusWallet:"1",
+                    Email:"b3@b3.com" ,
+                    FirstAction:first , 
+                    FirstPctAction:"1" , 
+                    FirstPrcAction:"1" , 
+                    SecondAction:second , 
+                    SecondPctAction:"1" , 
+                    SecondPrcAction:"1" , 
+                    ThirdAction: three , 
+                    ThirdPctAction:"1" , 
+                    ThirdPrcAction:"1" , 
+                    FourthAction:four , 
+                    FourthPctAction:"1" , 
+                    FourthPrcAction:"1" , 
+                    FifthAction:five , 
+                    FifthPctAction:"1" , 
+                    FifthPrcAction:"1"  
+                  } );
+                }
                 else
                   setOpenWithCash(true);
               }
@@ -281,11 +312,11 @@ const handleShow = ()=>{
         hoverBorderColor: theme.palette.white
       }
     ],
-    labels: [first == null ? '1º Ação' : first, 
+    labels: [first == null ? '1º Ação' : first , 
              second== null ? '2º Ação' : second,
              three == null ? '3º Ação' : three,
              four  == null ? '4º Ação' : four,
-             five  == null ? '5º Ação' : five],
+             five  == null ? '5º Ação' : five]
                
   };
 
@@ -341,17 +372,18 @@ const handleShow = ()=>{
           <IconButton size="small">
             {MsgInf ? <div  className={classes.Information}>Preencha as 5 ações!</div> : null }
             {MsgUpdate ? <div  className={classes.SuccessInformation}>Carteira atualizada!</div> : null }
-             <Button color="primary"
+             {Choose=="Not" ? null : <Button color="primary"
                      size="small"
                      variant="outlined"
                      onClick={HandleWallet}
              >
               Salvar
-            </Button>
+            </Button>}
           </IconButton>
         }
         title={MsgHeader}
         subheader={MsgSubHeader}
+
       />
       <Divider />
       
@@ -359,7 +391,7 @@ const handleShow = ()=>{
           <Pie
             data={data}
             options={opts}
-            onElementsClick={handleClickOpen}
+            onElementsClick={Choose=="Not" ? null : handleClickOpen}
           />
         </div>
        <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">

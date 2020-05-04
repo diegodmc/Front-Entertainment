@@ -30,7 +30,8 @@ const useStyles = makeStyles(theme => ({
     fontFamily: 'sans-serif',
     fontSize: '14px',
     color:'#546e7a',
-    padding: theme.spacing(3)
+    padding: theme.spacing(3),
+    fontWeight: 'bold'
   },
   divider:{
     color:'#546e7a'
@@ -59,6 +60,7 @@ const Settings = () => {
   
   const [name, setName] = React.useState(null);
   const [doc, setDoc] = React.useState(null);
+  const [phone, setPhone] = React.useState(null);
   const [bank, setBank] = React.useState(null);
   const [agency, setAgency] = React.useState(null);
   const [account, setAccount] = React.useState(null);
@@ -68,7 +70,29 @@ const Settings = () => {
   const [msgInf, setMsgInf] = React.useState(null);
   const [save, setSave] = React.useState(null);
   const [val, setVal] = React.useState(null);
-  //handleDataPeople
+  const [msgInfPeople, setMsgInfPeople] = React.useState(null);
+  const [savePeople, setSavePeople] = React.useState(null);
+  
+  const handlePeople = async (e,v) => {
+    setMsgInfPeople(false);
+    setSavePeople(false);
+    console.log('diego');
+    if(value <= 0 || val < value)
+    {
+      setMsgInfPeople(true);
+    }
+    const response = await api.post("/people/create",{
+                                                            email: 'b3@b3.com',
+                                                            name: name,
+                                                            doc: doc,
+                                                            phone: phone
+                                                          });
+    if(response.status==200)
+    {
+      setSavePeople(true);
+    }
+}
+
   const handlePersonalData = async (e,v) => {
       setMsgInf(false);
       setSave(false);
@@ -79,8 +103,6 @@ const Settings = () => {
       }
       const response = await api.post("/personaldata/create",{
                                                               email: 'b3@b3.com',
-                                                              name: name,
-                                                              doc: doc,
                                                               bank: bank,
                                                               agency: agency,
                                                               account: account,
@@ -99,8 +121,6 @@ const Settings = () => {
     const response =  await api.get("/personaldata/GetPersonalData");
       if(response.status ==200)
       {
-          setName(response.data.name);
-          setDoc(response.data.doc);
           setBank(response.data.bank);
           setAgency(response.data.agency);
           setAccount(response.data.account);
@@ -109,8 +129,18 @@ const Settings = () => {
       }
   }
 
+  const handleGetPeople = async (e,v) => {
+    const response =  await api.get("/people/GetPeople");
+      if(response.status ==200)
+      {
+          setName(response.data.name);
+          setDoc(response.data.doc);
+          setPhone(response.data.phone);
+      }
+  }
   useEffect(() => {
     handleGetPersonalData();
+    handleGetPeople();
   }, []);
   
 
@@ -140,14 +170,86 @@ const Settings = () => {
         />
         
         <CardContent>
-          <Grid
+        <Grid
             container
             spacing={3}
-            className={classes.balance}
-          >Saldo em conta:{accountBalance}
+          >
+            <Grid
+              item
+              md={6}
+              xs={12}
+            >
+              <TextField
+                fullWidth
+                label="Nome"
+                margin="dense"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                name="name"
+                required
+                value={name}
+                onChange={e => setName(e.target.value)}
+                variant="outlined"
+              />
+            </Grid>
+            <Grid
+              item
+              md={6}
+              xs={12}
+            >
+              <TextField
+                fullWidth
+                label="CPF"
+                margin="dense"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                name="doc"
+                required
+                value={doc}
+                onChange={e => setDoc(e.target.value)}
+                variant="outlined"
+              />
+            </Grid>
+            <Grid
+              item
+              md={6}
+              xs={12}
+            >
+              <TextField
+                fullWidth
+                label="Telefone"
+                margin="dense"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                name="phone"
+                required
+                value={phone}
+                onChange={e => setPhone(e.target.value)}
+                variant="outlined"
+              />
+            </Grid>
+          <Grid item
+              md={6}
+              xs={12}
+              className={classes.balance}
+            ><br />
+            <br />
+              Saldo em conta:{accountBalance}
           
           </Grid>
+        </Grid>
+        <CardActions>
+          <Button onClick={handlePeople} variant="outlined"  color="primary">
+            Salvar
+          </Button>
+        </CardActions>
+        {msgInfPeople ? <div  className={classes.Information}>Dados inválidos!</div> : null }
+        {savePeople ? <div  className={classes.SuccessInformation}>Dados salvo com sucesso!</div> : null }
         </CardContent>
+        
       </Card>
       
       <Divider />
@@ -203,44 +305,6 @@ const Settings = () => {
             container
             spacing={3}
           >
-        <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Nome"
-                margin="dense"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                name="name"
-                required
-                value={name}
-                onChange={e => setName(e.target.value)}
-                variant="outlined"
-              />
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="CPF"
-                margin="dense"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                name="doc"
-                required
-                value={doc}
-                onChange={e => setDoc(e.target.value)}
-                variant="outlined"
-              />
-            </Grid>
             <Grid
               item
               md={6}
@@ -326,7 +390,7 @@ const Settings = () => {
             Salvar
           </Button>
         </CardActions>
-            </Grid>
+      </Grid>
         </CardContent>
        </Card>
         <Divider />

@@ -66,6 +66,7 @@ const UsersTable = props => {
             <Table>
               <TableHead>
                 <TableRow>
+                <TableCell>Posição</TableCell>
                   <TableCell>Nome</TableCell>
                   <TableCell>Pontuação</TableCell>
                 </TableRow>
@@ -78,8 +79,9 @@ const UsersTable = props => {
                     key={user.id}
                     selected={selectedUsers.indexOf(user.id) !== -1}
                   >
+                    <TableCell>{user.position}</TableCell>
                     <TableCell>{user.email}</TableCell>
-                    <TableCell>{user.balance}</TableCell>
+                    <TableCell>{user.scorePoint}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>

@@ -42,7 +42,7 @@ const Dashboard = () => {
           xl={3}
           xs={12}
         >
-          <Information />
+          <TopHigh />
         </Grid>
         <Grid
           item
@@ -60,7 +60,7 @@ const Dashboard = () => {
           xl={3}
           xs={12}
         >
-          <TopHigh />
+          <Information />
         </Grid>
       </Grid>
   </div> 

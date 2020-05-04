@@ -5,6 +5,10 @@ import { isAuthenticated} from "../../services/auth";
 import { UsersToolbar, UsersTable } from './components';
 import mockData from './data';
 import api from '../../services/api';
+import Score from './components/Score';
+import {
+  Grid
+} from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -22,7 +26,7 @@ const Ranking = () => {
   const [users, setUsers] = React.useState(mockData);
   
   const handleGetRanking = async (e,v) => {
-      const response = await api.get("/wallet/getranking");
+      const response = await api.get("/score/getscore");
       setUsers(response.data);
   }
 
@@ -34,9 +38,31 @@ const Ranking = () => {
     isAuthenticated() ?(
     <div className={classes.root}>
       <UsersToolbar />
+      <Grid
+        container
+        spacing={4}
+      >
+        <Grid
+          item
+          lg={8}
+          md={12}
+          xl={9}
+          xs={12}
+        >
       <div className={classes.content}>
         <UsersTable users={users} />
       </div>
+      </Grid>
+      <Grid
+          item
+          lg={4}
+          md={6}
+          xl={3}
+          xs={12}
+        >
+          <Score />
+        </Grid>
+        </Grid>
     </div>
   ): <Redirect to={{ pathname: "/", state: { from: "" } }} />
   );
