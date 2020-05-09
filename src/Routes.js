@@ -2,7 +2,8 @@ import React from 'react';
 import { Switch, Redirect } from 'react-router-dom';
 
 import { RouteWithLayout } from './components';
-import { Main as MainLayout, Minimal as MinimalLayout } from './layouts';
+import { Main as MainLayout, Minimal as MinimalLayout , HomeLayout} from './layouts';
+
 import 
  {
   Dashboard as DashboardView,
@@ -20,20 +21,24 @@ import About from './views/About';
 import HowItWorks from './views/HowItWorks';
 import Support from './views/Support';
 import HistoryView from './views/History';
+import HomeView from './views/Home';
 
 const Routes = () => {
   return (
     <Switch>
-      <Redirect
-        exact
-        from="/"
-        to="/sign-in"
-      />
+      
       <RouteWithLayout
         component={DashboardView}
         exact
         layout={MainLayout}
         path="/dashboard"
+      />
+      
+      <RouteWithLayout
+        component={HomeView}
+        exact
+        layout={HomeLayout}
+        path="/home"
       />
       <RouteWithLayout
         component={Ranking}
@@ -113,8 +118,6 @@ const Routes = () => {
         layout={MinimalLayout}
         path="/Support"
       />
-      
-      
       <Redirect to="/not-found" />
     </Switch>
   );

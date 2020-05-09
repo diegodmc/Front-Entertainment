@@ -14,8 +14,8 @@ import {
   Typography
 } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import Carousel from '../SignIn/Carousel';
-import { resolveTypeReferenceDirective } from 'typescript';
+
+
 
 const schema = {
   email: {
@@ -74,10 +74,9 @@ const useStyles = makeStyles(theme => ({
   contentContainer: {},
   content: {
     height: '100%',
-    widtht: '50%',
     display: 'flex',
     flexDirection: 'column',
-    marginTop: theme.spacing(-3),
+    marginTop: theme.spacing(-5),
   },
   contentHeader: {
     display: 'flex',
@@ -238,22 +237,7 @@ const SignIn = props => {
         container
       >
         <Grid
-          className={classes.content}
-          item
-          lg={7}
-          xs={12}
-        >
-          <div className={classes.quote}>
-            <div className={classes.quoteInner}>
-             <Carousel />
-            </div>
-          </div>
-        </Grid>
-        
-        <Grid
           className={classes.quoteContainer}
-          item
-          lg={5}
         >
           <div className={classes.content}>
             <div className={classes.contentHeader}>
@@ -276,6 +260,7 @@ const SignIn = props => {
                   color="textSecondary"
                   gutterBottom
                 >
+                  <br/>
                   Realize seu login para continuar.
                   {userInvalid ? <div  className={classes.Information}>Senha errada!</div> : null }
                   {userNotFound ? <div  className={classes.Information}>Usuário não cadastrado!</div> : null }

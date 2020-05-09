@@ -64,8 +64,6 @@ const Topbar = props => {
         </RouterLink>
         <div className={classes.flexGrow} />
         <Hidden mdDown>
-        <Button  className={classes.signIn} color="inherit" component={RouterLink} to="/About" variant="h6">Sobre</Button>
-        <Button  className={classes.signIn} color="inherit" component={RouterLink} to="/HowItWorks" >Como funciona</Button>
         <Button  className={classes.signIn} color="inherit" component={RouterLink} to="/sign-in" >Entrar</Button>
         <Button  className={classes.signUp} component={RouterLink} to="/sign-up" variant="h6">ABRA SUA CONTA</Button>
         </Hidden>

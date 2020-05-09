@@ -14,7 +14,7 @@ import {
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import apiWithout from '../../services/apiWithout';
 import { login } from "../../services/auth";
-import Carousel from '../SignIn/Carousel/Carousel';
+
 const schema = {
   
   email: {
@@ -83,6 +83,8 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     marginTop: theme.spacing(-5),
+    
+    
   },
   contentHeader: {
     display: 'flex',
@@ -220,8 +222,6 @@ const SignUp = props => {
       >
         <Grid
           className={classes.content}
-          item
-          lg={5}
         >
           <div className={classes.content}>
             <div className={classes.contentHeader}>
@@ -244,6 +244,7 @@ const SignUp = props => {
                   color="textSecondary"
                   gutterBottom
                 >
+                  <br/>
                   Use seu email para criar uma nova conta
                   {MsgInf ? <div  className={classes.Information}>Ops! Esse e-mail já está em uso.</div> : null }
                 </Typography>
@@ -315,19 +316,6 @@ const SignUp = props => {
                   </Link>
                 </Typography>
               </form>
-            </div>
-          </div>
-        </Grid>
-        <Grid
-          className={classes.quoteContainer}
-          item
-          
-          lg={7}
-          xs={12}
-        >
-         <div className={classes.quote}>
-            <div className={classes.quoteInner}>
-             <Carousel />
             </div>
           </div>
         </Grid>

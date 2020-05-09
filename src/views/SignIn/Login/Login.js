@@ -14,7 +14,6 @@ import {
   Typography
 } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import Carousel from '../Carousel';
 
 
 const schema = {
@@ -320,18 +319,6 @@ const Login = props => {
             </div>
           </Grid>
           
-          <Grid
-            className={classes.quoteContainer}
-            item
-            lg={7}
-            xs={12}
-          >
-             <div className={classes.quote}>
-            <div className={classes.quoteInner}>
-             <Carousel />
-            </div>
-          </div>
-          </Grid>
         </Grid>
       </div>
     );
