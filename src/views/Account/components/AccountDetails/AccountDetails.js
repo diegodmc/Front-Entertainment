@@ -26,9 +26,7 @@ const AccountDetails = props => {
     firstName: 'Diego',
     lastName: 'Costa',
     email: 'diegodmc.costa@gmail.com',
-    phone: '(47) 9 9682 1206',
-    state: 'Minas Gerais',
-    country: 'BRA'
+    phone: '(47) 9 9682 1206'
   });
 
   const handleChange = event => {
@@ -38,20 +36,6 @@ const AccountDetails = props => {
     });
   };
 
-  const states = [
-    {
-      value: 'Santa Catarina',
-      label: 'Santa Catarina'
-    },
-    {
-      value: 'Minas Gerais',
-      label: 'Minas Gerais'
-    },
-    {
-      value: 'São Paulo',
-      label: 'São Paulo'
-    }
-  ];
 
   return (
     <Card
@@ -131,50 +115,6 @@ const AccountDetails = props => {
                 name="phone"
                 onChange={handleChange}
                 value={values.phone}
-                variant="outlined"
-              />
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Estado"
-                margin="dense"
-                name="state"
-                onChange={handleChange}
-                required
-                select
-                // eslint-disable-next-line react/jsx-sort-props
-                SelectProps={{ native: true }}
-                value={values.state}
-                variant="outlined"
-              >
-                {states.map(option => (
-                  <option
-                    key={option.value}
-                    value={option.value}
-                  >
-                    {option.label}
-                  </option>
-                ))}
-              </TextField>
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="País"
-                margin="dense"
-                name="country"
-                onChange={handleChange}
-                required
-                value={values.country}
                 variant="outlined"
               />
             </Grid>

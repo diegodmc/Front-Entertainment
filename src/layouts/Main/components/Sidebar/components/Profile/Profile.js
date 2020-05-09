@@ -1,9 +1,9 @@
-import React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
-import { Avatar, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
+import api from 'services/api';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -26,31 +26,37 @@ const Profile = props => {
 
   const classes = useStyles();
 
-  const user = {
-    name: 'Diego Costa',
-    avatar: '/images/avatars/diego.jpg',
-    bio: 'Iniciante'
-  };
+  //const response =  await api.get("/personaldata/GetPersonalData");
+  const [name, setName] = React.useState(null);
+  const [note, setNote] = React.useState(null);
+  const [profile, setProfile] = React.useState(null);
+  const [position, setPosition] = React.useState(null);
+  
 
+  const handleGetScore = async (e,v) => {
+    const response =  await api.get("/score/GetScorePeople");
+      if(response.status ==200)
+      {
+          setName(response.data.name);
+          setNote(response.data.note);
+          setProfile(response.data.profile);
+          setPosition(response.data.position);
+      }
+  }
+  useEffect(() => {
+    handleGetScore();
+  }, []);
+  
   return (
     <div
       {...rest}
       className={clsx(classes.root, className)}
     >
-      <Avatar
-        alt="Person"
-        className={classes.avatar}
-        component={RouterLink}
-        src={user.avatar}
-        to="/account"
-      />
-      <Typography
-        className={classes.name}
-        variant="h4"
-      >
-        {user.name}
-      </Typography>
-      <Typography variant="body2">{user.bio}</Typography>
+      <Typography className={classes.name}variant="h4">{name}</Typography>
+      <Typography variant="body2">{profile}</Typography>
+      <Typography variant="body2">{position}º Ranking</Typography>
+      <Typography variant="body2">Score {note} </Typography>
+      
     </div>
   );
 };

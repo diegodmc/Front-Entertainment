@@ -66,6 +66,7 @@ const UsersTable = props => {
             <Table>
               <TableHead>
                 <TableRow>
+                <TableCell>Posição</TableCell>
                   <TableCell>Nome</TableCell>
                   <TableCell>Pontuação</TableCell>
                 </TableRow>
@@ -78,8 +79,9 @@ const UsersTable = props => {
                     key={user.id}
                     selected={selectedUsers.indexOf(user.id) !== -1}
                   >
-                    <TableCell>{user.phone}</TableCell>
-                    <TableCell>{user.phone}</TableCell>
+                    <TableCell>{user.position}</TableCell>
+                    <TableCell>{user.email}</TableCell>
+                    <TableCell>{user.scorePoint}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -88,15 +90,7 @@ const UsersTable = props => {
         </PerfectScrollbar>
       </CardContent>
       <CardActions className={classes.actions}>
-        <TablePagination
-          component="div"
-          count={users.length}
-          onChangePage={handlePageChange}
-          onChangeRowsPerPage={handleRowsPerPageChange}
-          page={page}
-          rowsPerPage={rowsPerPage}
-          rowsPerPageOptions={[5, 10, 25]}
-        />
+        
       </CardActions>
     </Card>
   );

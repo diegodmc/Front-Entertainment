@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
 import { CardHeader,Button,Divider } from '@material-ui/core';
-import { SearchInput } from 'components';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -44,12 +43,6 @@ const UsersToolbar = props => {
         >
           Exportar
         </Button>
-      </div>
-      <div className={classes.row}>
-        <SearchInput
-          className={classes.searchInput}
-          placeholder="Pesquisar"
-        />
       </div>
     </div>
   );

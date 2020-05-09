@@ -17,7 +17,7 @@ import {
   TableRow
 } from '@material-ui/core';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
-import apiWithout from '../../../../services/apiWithout';
+import api from '../../../../services/api';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -54,12 +54,54 @@ const TopHigh = props => {
   const classes = useStyles();
 
   const [quotes, setQuote] = useState([]);
+  const [firstAction             ,setfirstAction             ]= React.useState(false);
+  const [firstPctAction          ,setfirstPctAction          ]= React.useState(false);
+  const [firstPrcAction          ,setfirstPrcAction          ]= React.useState(false);
+  const [firstPrcActionCurrent   ,setfirstPrcActionCurrent   ]= React.useState(false);
+  const [secondAction            ,setsecondAction            ]= React.useState(false);
+  const [secondPctAction         ,setsecondPctAction         ]= React.useState(false);
+  const [secondPrcAction         ,setsecondPrcAction         ]= React.useState(false);
+  const [secondPrcActionCurrent  ,setsecondPrcActionCurrent  ]= React.useState(false);
+  const [thirdAction             ,setthirdAction             ]= React.useState(false);
+  const [thirdPctAction          ,setthirdPctAction          ]= React.useState(false);
+  const [thirdPrcAction          ,setthirdPrcAction          ]= React.useState(false);
+  const [thirdPrcActionCurrent   ,setthirdPrcActionCurrent   ]= React.useState(false);
+  const [fourthAction            ,setfourthAction            ]= React.useState(false);
+  const [fourthPctAction         ,setfourthPctAction         ]= React.useState(false);
+  const [fourthPrcAction         ,setfourthPrcAction         ]= React.useState(false);
+  const [fourthPrcActionCurrent  ,setfourthPrcActionCurrent  ]= React.useState(false);
+  const [fifthAction             ,setfifthAction             ]= React.useState(false);
+  const [fifthPctAction          ,setfifthPctAction          ]= React.useState(false);
+  const [fifthPrcAction          ,setfifthPrcAction          ]= React.useState(false);
+  const [fifthPrcActionCurrent   ,setfifthPrcActionCurrent   ]= React.useState(false);
+  const [balance                 ,setbalance                 ]= React.useState(false);
 
   useEffect( () =>{
 
         async function loadQuote(){
-            const response = await apiWithout.get('/quote/GetTopHigh');
-            setQuote(response.data);            
+            const response = await api.get('/wallet/GetWalletClient');
+            setfirstAction(response.data.firstAction);
+            setfirstPctAction(response.data.firstPctAction);
+            setfirstPrcAction(response.data.firstPrcAction);
+            setfirstPrcActionCurrent(response.data.firstPrcActionCurrent);
+            setsecondAction(response.data.secondAction);
+            setsecondPctAction(response.data.secondPctAction);
+            setsecondPrcAction(response.data.secondPrcAction);
+            setsecondPrcActionCurrent(response.data.secondPrcActionCurrent);
+            setthirdAction(response.data.thirdAction);
+            setthirdPctAction(response.data.thirdPctAction);
+            setthirdPrcAction(response.data.thirdPrcAction);
+            setthirdPrcActionCurrent(response.data.thirdPrcActionCurrent);
+            setfourthAction(response.data.fourthAction);
+            setfourthPctAction(response.data.fourthPctAction);
+            setfourthPrcAction(response.data.fourthPrcAction);
+            setfourthPrcActionCurrent(response.data.fourthPrcActionCurrent);
+            setfifthAction(response.data.fifthAction);
+            setfifthPctAction(response.data.fifthPctAction);
+            setfifthPrcAction(response.data.fifthPrcAction);
+            setfifthPrcActionCurrent(response.data.fifthPrcActionCurrent);
+            setbalance(response.data.balance);                 
+                  
         }
         loadQuote();
     }, []);
@@ -72,7 +114,7 @@ const TopHigh = props => {
     >
       <CardHeader
         subtitle={`${quotes.length} in total`}
-        title="Maiores Altas"
+        title="Detalhamento da carteira"
       />
       <Divider />
       <CardContent className={classes.content}>
@@ -81,35 +123,50 @@ const TopHigh = props => {
                     <TableHead>
                       <TableRow>
                         <TableCell>Ação</TableCell>
-                        <TableCell>Preço</TableCell>
-                        <TableCell className={classes.differenceIcon}> <ArrowUpwardIcon className={classes.differenceIcon} /></TableCell>
+                        <TableCell>Comprado</TableCell>
+                        <TableCell>Atual</TableCell>
+                        <TableCell>%</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {quotes.map(quote => (
-                        <TableRow
-                          hover
-                          key={quote.id}
-                        >
-                          <TableCell>{quote.code}</TableCell>
-                          <TableCell>{quote.price}</TableCell>
-                          <TableCell className={classes.differenceIcon}>{quote.varpct} %</TableCell>
-                        </TableRow>
-                      ))}
+                     <TableRow>
+                         <TableCell>{firstAction}</TableCell>
+                         <TableCell>{firstPrcAction}</TableCell>
+                         <TableCell>{firstPrcActionCurrent}</TableCell>
+                         <TableCell>{firstPctAction} %</TableCell>
+                    </TableRow>
+                    <TableRow>
+                         <TableCell>{secondAction}</TableCell>
+                         <TableCell>{secondPrcAction}</TableCell>
+                         <TableCell>{secondPrcActionCurrent}</TableCell>
+                         <TableCell>{secondPctAction} %</TableCell>
+                    </TableRow>
+                    
+                    <TableRow>
+                         <TableCell>{thirdAction}</TableCell>
+                         <TableCell>{thirdPrcAction}</TableCell>
+                         <TableCell>{thirdPrcActionCurrent}</TableCell>
+                         <TableCell>{thirdPctAction} %</TableCell>
+                    </TableRow>
+                    
+                    <TableRow>
+                         <TableCell>{fourthAction}</TableCell>
+                         <TableCell>{fourthPrcAction}</TableCell>
+                         <TableCell>{fourthPrcActionCurrent}</TableCell>
+                         <TableCell>{fourthPctAction} %</TableCell>
+                    </TableRow>
+                    
+                    <TableRow>
+                         <TableCell>{fifthAction}</TableCell>
+                         <TableCell>{fifthPrcAction}</TableCell>
+                         <TableCell>{fifthPrcActionCurrent}</TableCell>
+                         <TableCell>{fifthPctAction} %</TableCell>
+                    </TableRow>
                     </TableBody>
                   </Table>
                 </div>
       </CardContent>
       <Divider />
-      <CardActions className={classes.actions}>
-        <Button
-          color="primary"
-          size="small"
-          variant="text"
-        >
-          Ver todas <ArrowRightIcon />
-        </Button>
-      </CardActions>
     </Card>
   );
 };

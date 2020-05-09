@@ -1,13 +1,20 @@
-import React, { useState, useEffect } from 'react';
-export const TOKEN_KEY = "@airbnb-Token";
-const NotFound = () => {
+import React, { Component,useState, useEffect } from 'react';
 
-  const Exit = async (e,v) => { 
-    localStorage.removeItem(TOKEN_KEY);
-}
-    return(
-        <div>{Exit}
-        </div>
-    )
+import { Switch, Redirect, Route } from 'react-router-dom';
+export const TOKEN_KEY = "@airbnb-Token";
+
+class NotFound extends Component {
+
+    render() {
+        return (
+          <div >
+            
+            <Route exact  render={() => {window.location.href="home.html"}} />
+          </div>);
+      }
+
+
 }
 export default NotFound;
+
+

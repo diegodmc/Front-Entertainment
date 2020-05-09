@@ -38,12 +38,6 @@ const UsersToolbar = props => {
         subheader="Maior influenciador de investimentos "
       />
       </div>
-      <div className={classes.row}>
-        <SearchInput
-          className={classes.searchInput}
-          placeholder="Pesquisar"
-        />
-      </div>
     </div>
   );
 };

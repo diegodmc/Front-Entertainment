@@ -8,3 +8,4 @@ export { default as SignIn } from './SignIn';
 export { default as SignUp } from './SignUp';
 export { default as ClosedMarket } from './ClosedMarket';
 export { default as Ranking } from './Ranking';
+export { default as Home } from './Home';

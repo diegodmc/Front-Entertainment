@@ -58,7 +58,6 @@ const Topbar = props => {
               color="primary"
               variant="dot"
             >
-              <NotificationsIcon />
             </Badge>
           </IconButton>
           <IconButton

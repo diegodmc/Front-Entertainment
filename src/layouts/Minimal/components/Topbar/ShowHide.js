@@ -46,8 +46,6 @@ export default function TemporaryDrawer() {
       <List>
 	          <ListItem > <ListItemIcon> <Link component={RouterLink} to="/" variant="h6"><Home /> Home </Link></ListItemIcon></ListItem>
             <ListItem > <ListItemIcon> <Link component={RouterLink} to="/sign-in/login" variant="h6"><Signin /> Entrar </Link>  </ListItemIcon></ListItem>				   
-            <ListItem > <ListItemIcon> <Link component={RouterLink} to="/About" variant="h6"><HomeWork /> Sobre </Link>  </ListItemIcon>	</ListItem>
-            <ListItem > <ListItemIcon> <Link component={RouterLink} to="/HowItWorks" variant="h6"><Timeline /> Como funciona </Link>  </ListItemIcon> </ListItem>	   
             <ListItem > <ListItemIcon> <Link component={RouterLink} to="/Support" variant="h6"><WhatsApp /> Atendimento </Link>  </ListItemIcon> </ListItem>
             
 		</List>
