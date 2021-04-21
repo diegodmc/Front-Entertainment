@@ -59,7 +59,7 @@
     "react-scripts": "^3.0.1",
     "react-spring": "^8.0.27",
     "recompose": "^0.30.0",
-    "sockjs": "^0.3.19",
+    "sockjs": "^0.3.20",
     "styled-components": "^4.4.1",
     "underscore": "^1.9.1",
     "uuid": "^3.3.2",
